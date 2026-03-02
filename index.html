@@ -118,21 +118,55 @@ section{
   box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
+.gallery-wrapper{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.gallery-grid img{
+.gallery-viewport{
+  overflow:hidden;
   width:100%;
+}
+
+.gallery-track{
+  display:flex;
+  transition:transform 0.5s ease;
+}
+
+.gallery-item{
+  min-width:33.3333%;
+  padding:10px;
+}
+
+.gallery-item img{
+  width:100%;
+  height:250px;
+  object-fit:cover; /* crop if needed */
   border-radius:15px;
   cursor:pointer;
   transition:transform 0.3s;
 }
 
-.gallery-grid img:hover{
+.gallery-item img:hover{
   transform:scale(1.05);
+}
+
+.gallery-nav{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:10px 15px;
+  cursor:pointer;
+  border-radius:8px;
+  font-size:18px;
+}
+
+@media(max-width:900px){
+  .gallery-item{
+    min-width:100%;
+  }
 }
 
 /* Lightbox */
@@ -154,12 +188,6 @@ section{
 
 #lightbox.active{
   display:flex;
-}
-
-@media(max-width:900px){
-  .gallery-grid{
-    grid-template-columns:1fr;
-  }
 }
 
 .gallery button{
@@ -236,11 +264,35 @@ footer .footer-content{
 
 <section id="gallery">
   <h2 class="section-title">Gallery</h2>
-  
-  <div class="gallery-grid">
-    <img src="assets/img1.jpg" onclick="openLightbox(this.src)">
-    <img src="assets/img2.jpg" onclick="openLightbox(this.src)">
-    <img src="assets/img3.jpg" onclick="openLightbox(this.src)">
+
+  <div class="gallery-wrapper">
+    <button class="gallery-nav prev" onclick="changeGallery(-1)">❮</button>
+
+    <div class="gallery-viewport">
+      <div class="gallery-track" id="galleryTrack">
+        <!-- Images -->
+        <div class="gallery-item">
+          <img src="assets/img1.jpg" onclick="openLightbox(this.src)">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/img2.jpg" onclick="openLightbox(this.src)">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/img3.jpg" onclick="openLightbox(this.src)">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/terasa1.jpg" onclick="openLightbox(this.src)">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/terasa2.jpg" onclick="openLightbox(this.src)">
+        </div>
+        <div class="gallery-item">
+          <img src="" onclick="openLightbox(this.src)">
+        </div>
+      </div>
+    </div>
+
+    <button class="gallery-nav next" onclick="changeGallery(1)">❯</button>
   </div>
 
   <!-- Lightbox -->
@@ -282,7 +334,28 @@ card.innerHTML=`<h3>${a.name}</h3><ul>${a.details.map(d=>`<li>${d}</li>`).join("
 container.appendChild(card);
 });
 
-// Gallery slider - Lightbox functionality
+// Gallery scroll
+let galleryIndex = 0;
+const galleryTrack = document.getElementById("galleryTrack");
+const totalImages = galleryTrack.children.length;
+const visibleImages = 3;
+
+function changeGallery(direction){
+  galleryIndex += direction;
+
+  if(galleryIndex < 0){
+    galleryIndex = Math.ceil(totalImages / visibleImages) - 1;
+  }
+
+  if(galleryIndex >= Math.ceil(totalImages / visibleImages)){
+    galleryIndex = 0;
+  }
+
+  galleryTrack.style.transform =
+    `translateX(-${galleryIndex * 100}%)`;
+}
+
+// Lightbox
 function openLightbox(src){
   const lightbox = document.getElementById("lightbox");
   const img = document.getElementById("lightbox-img");
