@@ -144,11 +144,38 @@ iframe{
   display:block;
 }
 
+/* Footer styling */
 footer{
   background:#111827;
   color:white;
   text-align:center;
   padding:60px 20px;
+}
+
+.footer-content{
+  max-width:800px;
+  margin:auto;
+}
+
+.contact-card{
+  margin:30px auto;
+  padding:30px;
+  max-width:500px;
+}
+
+.contact-card p{
+  margin:15px 0;
+  font-size:1.1rem;
+}
+
+.contact-card a{
+  color:var(--primary);
+  text-decoration:none;
+  font-weight:600;
+}
+
+.contact-card a:hover{
+  text-decoration:underline;
 }
 
 .contact a{
