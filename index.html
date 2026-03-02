@@ -305,22 +305,164 @@ width="100%" height="400" style="border:none;border-radius:15px;"></iframe>
 </footer>
 
 <script>
-// Apartments dynamic load
-const apartments=[
-{name:"Prizemlje (4+1)",details:["2 rooms (2x2 beds)","Living room + sofa","Kitchen","WC","Terrace 20m²"]},
-{name:"1st Floor (8 persons)",details:["2 rooms (2x3 + 1x2 beds)","2 WC","Kitchen","Terrace 25m²"]},
-{name:"2nd Floor (4+1)",details:["2 rooms (2x2 beds)","Living room + sofa","Kitchen","WC","Terrace 50m²"]}
-];
 
-const container=document.getElementById("apartmentContainer");
-apartments.forEach(a=>{
-let card=document.createElement("div");
-card.className="card";
-card.innerHTML=`<h3>${a.name}</h3><ul>${a.details.map(d=>`<li>${d}</li>`).join("")}</ul>`;
-container.appendChild(card);
-});
+// =========================
+// FULL TRANSLATION OBJECT
+// =========================
+const translations = {
 
-// Gallery scroll
+en: {
+  subtitle: "30m from the Beach – Okrug Gornji",
+  navApartments: "Apartments",
+  navGallery: "Gallery",
+  navLocation: "Location",
+  navContact: "Contact",
+  apartmentsTitle: "Our Apartments",
+  galleryTitle: "Gallery",
+  locationTitle: "Location",
+  contactTitle: "Contact",
+  emailBtn: "Email",
+  callBtn: "Call",
+  footer: "© 2026 Apartmani Todor",
+  apartments: [
+    {
+      name:"Ground Floor (4+1 persons)",
+      details:["2 rooms (2x2 beds)","Living room with sofa (1 person)","Kitchen","WC","Terrace 20m²"]
+    },
+    {
+      name:"1st Floor (8 persons)",
+      details:["2 rooms (2x3 beds + 1x2 beds)","2 WC","Kitchen","Terrace 25m²"]
+    },
+    {
+      name:"2nd Floor (4+1 persons)",
+      details:["2 rooms (2x2 beds)","Living room with sofa (1 person)","Kitchen","WC","Terrace 50m²"]
+    }
+  ]
+},
+
+hr: {
+  subtitle: "30m od plaže – Okrug Gornji",
+  navApartments: "Apartmani",
+  navGallery: "Galerija",
+  navLocation: "Lokacija",
+  navContact: "Kontakt",
+  apartmentsTitle: "Naši Apartmani",
+  galleryTitle: "Galerija",
+  locationTitle: "Lokacija",
+  contactTitle: "Kontakt",
+  emailBtn: "Email",
+  callBtn: "Nazovi",
+  footer: "© 2026 Apartmani Todor",
+  apartments: [
+    {
+      name:"Prizemlje (4+1 osoba)",
+      details:["2 sobe (2x2 kreveta)","Dnevni boravak s kaučem (1 osoba)","Kuhinja","WC","Terasa 20m²"]
+    },
+    {
+      name:"1. Kat (8 osoba)",
+      details:["2 sobe (2x3 kreveta + 1x2 kreveta)","2 WC","Kuhinja","Terasa 25m²"]
+    },
+    {
+      name:"2. Kat (4+1 osoba)",
+      details:["2 sobe (2x2 kreveta)","Dnevni boravak s kaučem (1 osoba)","Kuhinja","WC","Terasa 50m²"]
+    }
+  ]
+},
+
+de: {
+  subtitle: "30m vom Strand – Okrug Gornji",
+  navApartments: "Apartments",
+  navGallery: "Galerie",
+  navLocation: "Lage",
+  navContact: "Kontakt",
+  apartmentsTitle: "Unsere Apartments",
+  galleryTitle: "Galerie",
+  locationTitle: "Lage",
+  contactTitle: "Kontakt",
+  emailBtn: "E-Mail",
+  callBtn: "Anrufen",
+  footer: "© 2026 Apartmani Todor",
+  apartments: [
+    {
+      name:"Erdgeschoss (4+1 Personen)",
+      details:["2 Zimmer (2x2 Betten)","Wohnzimmer mit Sofa (1 Person)","Küche","WC","Terrasse 20m²"]
+    },
+    {
+      name:"1. Stock (8 Personen)",
+      details:["2 Zimmer (2x3 Betten + 1x2 Betten)","2 WC","Küche","Terrasse 25m²"]
+    },
+    {
+      name:"2. Stock (4+1 Personen)",
+      details:["2 Zimmer (2x2 Betten)","Wohnzimmer mit Sofa (1 Person)","Küche","WC","Terrasse 50m²"]
+    }
+  ]
+}
+
+};
+
+// =========================
+// LANGUAGE SWITCH
+// =========================
+function setLang(lang){
+
+  const t = translations[lang];
+
+  document.getElementById("subtitle").innerText = t.subtitle;
+
+  document.querySelector('a[href="#apartments"]').innerText = t.navApartments;
+  document.querySelector('a[href="#gallery"]').innerText = t.navGallery;
+  document.querySelector('a[href="#location"]').innerText = t.navLocation;
+  document.querySelector('a[href="#contact"]').innerText = t.navContact;
+
+  document.getElementById("apartmentsTitle").innerText = t.apartmentsTitle;
+  document.getElementById("galleryTitle").innerText = t.galleryTitle;
+  document.getElementById("locationTitle").innerText = t.locationTitle;
+  document.getElementById("contactTitle").innerText = t.contactTitle;
+
+  document.getElementById("emailBtn").innerText = t.emailBtn;
+  document.getElementById("callBtn").innerText = t.callBtn;
+  document.getElementById("footerText").innerText = t.footer;
+
+  // rebuild apartments
+  const container = document.getElementById("apartmentContainer");
+  container.innerHTML = "";
+
+  t.apartments.forEach(a=>{
+    let card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`<h3>${a.name}</h3><ul>${a.details.map(d=>`<li>${d}</li>`).join("")}</ul>`;
+    container.appendChild(card);
+  });
+
+  localStorage.setItem("lang",lang);
+}
+
+// Load saved language
+const savedLang = localStorage.getItem("lang") || "en";
+setLang(savedLang);
+
+// =========================
+// DARK MODE
+// =========================
+function toggleTheme(){
+document.body.classList.toggle("dark");
+let btn=document.getElementById("themeBtn");
+if(document.body.classList.contains("dark")){
+btn.innerText="☀";
+localStorage.setItem("theme","dark");
+}else{
+btn.innerText="🌙";
+localStorage.setItem("theme","light");
+}
+}
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark");
+document.getElementById("themeBtn").innerText="☀";
+}
+
+// =========================
+// GALLERY NAVIGATION
+// =========================
 let galleryIndex = 0;
 const galleryTrack = document.getElementById("galleryTrack");
 const totalImages = galleryTrack.children.length;
@@ -341,7 +483,9 @@ function changeGallery(direction){
     `translateX(-${galleryIndex * 100}%)`;
 }
 
-// Lightbox
+// =========================
+// LIGHTBOX
+// =========================
 function openLightbox(src){
   const lightbox = document.getElementById("lightbox");
   const img = document.getElementById("lightbox-img");
@@ -353,35 +497,6 @@ function closeLightbox(){
   document.getElementById("lightbox").classList.remove("active");
 }
 
-// Multi-language
-const translations={
-en:{subtitle:"30m from the Beach – Okrug Gornji",aptTitle:"Our Apartments"},
-hr:{subtitle:"30m od plaže – Okrug Gornji",aptTitle:"Naši Apartmani"},
-de:{subtitle:"30m vom Strand – Okrug Gornji",aptTitle:"Unsere Apartments"}
-};
-function setLang(lang){
-document.getElementById("subtitle").innerText=translations[lang].subtitle;
-document.getElementById("aptTitle").innerText=translations[lang].aptTitle;
-}
-
-// Dark mode
-function toggleTheme(){
-document.body.classList.toggle("dark");
-let btn=document.getElementById("themeBtn");
-if(document.body.classList.contains("dark")){
-btn.innerText="☀";
-localStorage.setItem("theme","dark");
-}else{
-btn.innerText="🌙";
-localStorage.setItem("theme","light");
-}
-}
-
-// Load saved theme
-if(localStorage.getItem("theme")==="dark"){
-document.body.classList.add("dark");
-document.getElementById("themeBtn").innerText="☀";
-}
 </script>
 
 </body>
