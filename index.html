@@ -118,20 +118,48 @@ section{
   box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-.gallery{
-  position:relative;
-  max-width:900px;
-  margin:auto;
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
 }
 
-.gallery img{
+.gallery-grid img{
   width:100%;
   border-radius:15px;
-  display:none;
+  cursor:pointer;
+  transition:transform 0.3s;
 }
 
-.gallery img.active{
-  display:block;
+.gallery-grid img:hover{
+  transform:scale(1.05);
+}
+
+/* Lightbox */
+#lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+
+#lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:10px;
+}
+
+#lightbox.active{
+  display:flex;
+}
+
+@media(max-width:900px){
+  .gallery-grid{
+    grid-template-columns:1fr;
+  }
 }
 
 .gallery button{
@@ -207,16 +235,18 @@ footer .footer-content{
 </section>
 
 <section id="gallery">
-<h2 class="section-title">Gallery</h2>
-<div class="gallery">
-  <img src="assets/tereasa2.jpg" class="active">
-  <img src="assets/tereasa1.jpg">
-  <img src="assets/img1.jpg">
-  <img src="assets/img2.jpg">
-  <img src="assets/img3.jpg">
-  <button class="prev" onclick="changeSlide(-1)">❮</button>
-  <button class="next" onclick="changeSlide(1)">❯</button>
-</div>
+  <h2 class="section-title">Gallery</h2>
+  
+  <div class="gallery-grid">
+    <img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0" onclick="openLightbox(this.src)">
+    <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511" onclick="openLightbox(this.src)">
+    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2" onclick="openLightbox(this.src)">
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img">
+  </div>
 </section>
 
 <section id="location">
@@ -252,16 +282,17 @@ card.innerHTML=`<h3>${a.name}</h3><ul>${a.details.map(d=>`<li>${d}</li>`).join("
 container.appendChild(card);
 });
 
-// Gallery slider
-let index=0;
-const slides=document.querySelectorAll(".gallery img");
-function showSlide(i){
-slides.forEach(s=>s.classList.remove("active"));
-index=(i+slides.length)%slides.length;
-slides[index].classList.add("active");
+// Gallery slider - Lightbox functionality
+function openLightbox(src){
+  const lightbox = document.getElementById("lightbox");
+  const img = document.getElementById("lightbox-img");
+  img.src = src;
+  lightbox.classList.add("active");
 }
-function changeSlide(step){showSlide(index+step);}
-setInterval(()=>changeSlide(1),4000);
+
+function closeLightbox(){
+  document.getElementById("lightbox").classList.remove("active");
+}
 
 // Multi-language
 const translations={
