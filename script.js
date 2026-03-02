@@ -1,3 +1,5 @@
+<script>
+
 // =========================
 // FULL TRANSLATION OBJECT
 // =========================
@@ -188,3 +190,5 @@ function openLightbox(src){
 function closeLightbox(){
   document.getElementById("lightbox").classList.remove("active");
 }
+
+</script>
