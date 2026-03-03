@@ -210,6 +210,8 @@ footer{
 
 #lightbox.active{display:flex;}
 
-@media(max-width:900px){
-  .gallery-item{min-width:100%;}
+/* Mobile */
+@media(max-width:768px){
+  .gallery-item{min-width:100%;
+  }
 }
