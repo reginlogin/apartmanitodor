@@ -1,5 +1,3 @@
-<script>
-
 // =========================
 // FULL TRANSLATION OBJECT
 // =========================
@@ -139,19 +137,30 @@ setLang(savedLang);
 // DARK MODE
 // =========================
 function toggleTheme(){
-document.body.classList.toggle("dark");
-let btn=document.getElementById("themeBtn");
-if(document.body.classList.contains("dark")){
-btn.innerText="☀";
-localStorage.setItem("theme","dark");
-}else{
-btn.innerText="🌙";
-localStorage.setItem("theme","light");
+  document.body.classList.toggle("dark");
+  const iconPath = document.getElementById("iconPath");
+
+  if(document.body.classList.contains("dark")){
+    // Sun icon
+    iconPath.setAttribute("d",
+      "M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 8a4 4 0 100 8 4 4 0 000-8z"
+    );
+    localStorage.setItem("theme","dark");
+  } else {
+    // Moon icon
+    iconPath.setAttribute("d",
+      "M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+    );
+    localStorage.setItem("theme","light");
+  }
 }
-}
+
+// Load saved theme
 if(localStorage.getItem("theme")==="dark"){
-document.body.classList.add("dark");
-document.getElementById("themeBtn").innerText="☀";
+  document.body.classList.add("dark");
+  document.getElementById("iconPath").setAttribute("d",
+    "M12 3v2M12 19v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M3 12h2M19 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 8a4 4 0 100 8 4 4 0 000-8z"
+  );
 }
 
 // =========================
@@ -190,5 +199,3 @@ function openLightbox(src){
 function closeLightbox(){
   document.getElementById("lightbox").classList.remove("active");
 }
-
-</script>
