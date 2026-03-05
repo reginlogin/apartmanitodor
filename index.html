@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apartmani Todor</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Apartmani Todor | Okrug Gornji</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
 </head>
 <body>
 
-<header>
-  <div class="top-controls">
+<header class="parallax-header">
+  <div class="header-content">
+    <h1>APARTMANI TODOR</h1>
+    <p id="subtitle">Modern Apartments in Okrug Gornji – 30m from the Beach 🌊</p>
+  </div>
+    <div class="top-controls">
     <button onclick="setLang('en')">EN</button>
     <button onclick="setLang('hr')">HR</button>
     <button onclick="setLang('de')">DE</button>
@@ -20,75 +24,72 @@
       </svg>
     </button>
   </div>
-  <div class="content">
-    <h1>APARTMANI TODOR</h1>
-    <p id="subtitle"></p>
-  </div>
 </header>
 
 <nav>
-  <a href="#apartments"></a>
-  <a href="#gallery"></a>
-  <a href="#location"></a>
-  <a href="#contact"></a>
+  <a id="navApartments" href="#apartments"></a>
+  <a id="navHouse" href="#house"></a>
+  <a id="navGallery" href="#gallery"></a>
+  <a id="navLocation" href="#location"></a>
+  <a id="navInfo" href="#info"></a>
+  <a id="navContact" href="#contact"></a>
 </nav>
 
 <section id="apartments">
-  <h2 id="apartmentsTitle" class="section-title"></h2>
+  <h2 id="apartmentsTitle" class="section-title">Our Apartments</h2>
   <div class="apartments" id="apartmentContainer"></div>
 </section>
 
 <section id="house">
   <h2 id="houseTitle" class="section-title">Whole House Rental</h2>
-  <div class="card">
-    <h3>Complete House (16–18 people)</h3>
-    <p>3 apartments (80–100m² each), 7 rooms, 4 WC, 3 kitchens, 3 terraces.</p>
-    <p>Private grill area available – we can prepare barbecue for you!</p>
-    <p>Owners live nearby and are always available to help.</p>
-  </div>
+  <div class="house" id="houseContainer"></div>
 </section>
 
 <section id="gallery">
-  <h2 id="galleryTitle" class="section-title"></h2>
-
-  <div class="gallery-wrapper">
-    <button class="gallery-nav prev" onclick="changeGallery(-1)">❮</button>
-
-    <div class="gallery-viewport">
-      <div class="gallery-track" id="galleryTrack">
-        <div class="gallery-item"><img src="assets/img1.jpg" onclick="openLightbox(this.src)"></div>
-        <div class="gallery-item"><img src="assets/img2.jpg" onclick="openLightbox(this.src)"></div>
-        <div class="gallery-item"><img src="assets/img3.jpg" onclick="openLightbox(this.src)"></div>
-        <div class="gallery-item"><img src="assets/terasa1.jpg" onclick="openLightbox(this.src)"></div>
-        <div class="gallery-item"><img src="assets/terasa2.jpg" onclick="openLightbox(this.src)"></div>
-        <div class="gallery-item"><img src="assets/img4.webp" onclick="openLightbox(this.src)"></div>
-      </div>
+  <h2 id="galleryTitle" class="section-title">Gallery</h2>
+  <div class="slider" id="slider">
+    <div class="slides" id="slides">
+      <div class="slide"><img src="/assets/img1.jpg"></div>
+      <div class="slide"><img src="/assets/img2.jpg"></div>
+      <div class="slide"><img src="/assets/img3.jpg"></div>
+      <div class="slide"><img src="/assets/img4.webp"></div>
+      <div class="slide"><img src="/assets/terasa1.jpg"></div>
     </div>
-
-    <button class="gallery-nav next" onclick="changeGallery(1)">❯</button>
-  </div>
-
-  <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img">
+    <!-- Click areas -->
+    <div class="click-zone left" id="leftZone">
+      <div class="arrow arrow-left">❮</div>
+    </div>
+    <div class="click-zone right" id="rightZone">
+      <div class="arrow arrow-right">❯</div>
+    </div>
+    <!-- Dots on image -->
+    <div class="dots" id="dots"></div>
   </div>
 </section>
 
-<section id="location">
-  <h2 id="locationTitle" class="section-title"></h2>
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2894.785971294611!2d16.2678901!3d43.4859368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13356971a6f6337f%3A0x25a163022d58faa2!2sUl.%20Franje%20Krste%20Frankopana%2014%2C%2021223%2C%20Okrug%20Gornji!5e0!3m2!1sen!2shr!4v1772545994246!5m2!1sen!2shr"></iframe>
+<section id="location" class="location">
+  <h2 id="locationTitle" class="section-title">Location – Okrug Gornji</h2>
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2894.785971294611!2d16.2678901!3d43.4859368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13356971a6f6337f%3A0x25a163022d58faa2!2sUl.%20Franje%20Krste%20Frankopana%2014%2C%2021223%2C%20Okrug%20Gornji!5e0!3m2!1sen!2shr!4v1772545994246!5m2!1sen!2shr">
+  </iframe>
 </section>
 
-<footer id="contact">
-  <div class="footer-content">
-    <h2 id="contactTitle"></h2>
-    <div class="contact">
-      <a id="emailBtn" href="mailto:vlado.todorovic.split@gmail.com"></a>
-      <a id="callBtn" href="tel:+00395997340863"></a>
-    </div>
-    <p id="footerText"></p>
-  </div>
+<section id="info">
+  <h2 id="infoTitle" class="section-title">General Information</h2>
+  <div class="info" id="infoContainer"></div>
+</section>
+
+<section id="contact" class="contact">
+  <h2 id="contactTitle" class="section-title">Contact Us</h2>
+  <a id="emailBtn" href="mailto:vlado.todorovic.split@gmail.com">Email</a>
+  <a id="callBtn" href="tel:00385997330863">Call 00 385 99 733 0863</a>
+</section>
+
+<footer id="footerText">
+  © 2026 Apartmani Todor – Okrug Gornji
 </footer>
 
 <script src="script.js"></script>
+
 </body>
 </html>
